@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:audioplayers/audio_cache.dart';
@@ -10,6 +12,32 @@ class XylophoneApp extends StatelessWidget {
     player.play('note$soundNumber.wav');
   }
 
+  Widget buildKey(int soundNum, Color color) {
+    return Expanded(
+      child: TextButton(
+        onPressed: () {
+          playSound(soundNum);
+        },
+        style: TextButton.styleFrom(
+          padding: const EdgeInsets.all(0),
+          backgroundColor: color,
+        ),
+        child: null,
+      ),
+    );
+  }
+
+  List<Color> randomColors() {
+    Random random = Random();
+    return List.generate(7, (int i) =>
+        Color((random.nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0));
+  }
+
+  List<Widget> keyGenerator() {
+    List colors = randomColors();
+    return List.generate(7, (int i) => buildKey(i + 1, colors[i]));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,93 +45,8 @@ class XylophoneApp extends StatelessWidget {
         backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(1);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.blueGrey,
-                  ),
-                  child: null,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(2);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.orange,
-                  ),
-                  child: null,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(3);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.green,
-                  ),
-                  child: null,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(4);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.blue,
-                  ),
-                  child: null,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(5);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.red,
-                  ),
-                  child: null,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(6);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.cyan,
-                  ),
-                  child: null,
-                ),
-              ),
-              Expanded(
-                child: TextButton(
-                  onPressed: () {
-                    playSound(7);
-                  },
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(0),
-                    backgroundColor: Colors.purple,
-                  ),
-                  child: null,
-                ),
-              ),
-            ],
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: keyGenerator(),
           ),
         ),
       ),
