@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'package:audioplayers/audio_cache.dart';
 
 void main() => runApp(XylophoneApp());
@@ -29,8 +27,10 @@ class XylophoneApp extends StatelessWidget {
 
   List<Color> randomColors() {
     Random random = Random();
-    return List.generate(7, (int i) =>
-        Color((random.nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0));
+    return List.generate(
+        7,
+        (int i) =>
+            Color((random.nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0));
   }
 
   List<Widget> keyGenerator() {
@@ -45,8 +45,8 @@ class XylophoneApp extends StatelessWidget {
         backgroundColor: Colors.black,
         body: SafeArea(
           child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: keyGenerator(),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: keyGenerator(),
           ),
         ),
       ),
